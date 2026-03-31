@@ -1,37 +1,37 @@
 export class Exams {
-   constructor(Weight, Answer) {
-       this.weight = Weight;
-       this.answer = Answer;
-       this.exams = [];
-       this.grades = []
-   }
-   add(studentsAnswers) {
-       let grade = 0
-       this.exams.push(studentsAnswers);
-       for (let i = 0; i < this.answer.length; i++) {
-           if (this.exams[this.exams.length - 1][i] === this.answer[i]) {
-               grade += this.weight[i];
-           }
-       }
-       this.grades.push(grade);
-       this.grades.sort((a, b) => a - b);
-   }
-   avg() {
-       const avg = this.grades.reduce((addition, value) => addition + value, 0) / this.exams.length;
-       return avg;
-   }
-   min(count) {
-       return this.grades.slice(0, count);
-   }
-   max(count) {
-       return this.grades.slice(this.grades.length - count, this.grades.length);
-   }
-   lt(limit) {
-       return this.grades.filter((grade) => grade < limit);
-   }
-   gt(limit) {
-       return this.grades.filter((grade) => grade > limit);
-   }
+    constructor(Weight, Answer) {
+        this.weight = Weight;
+        this.answer = Answer;
+        this.exams = [];
+        this.grades = [];
+    }
+    add(studentsAnswers) {
+        let grade = 0
+        this.exams.push(studentsAnswers);
+        for (let i = 0; i < this.answer.length; i++) {
+            if (this.exams[this.exams.length - 1][i] === this.answer[i]) {
+                grade += this.weight[i]; 
+            }
+        }
+        this.grades.push(grade);
+        this.grades.sort((a, b) => a - b);
+    }
+    avg() {
+        const avg = this.grades.reduce((addition, value) => addition + value, 0) / this.exams.length;
+        return avg;
+    }
+    min(count) {
+        return this.grades.slice(0, count);
+    }
+    max(count) {
+        return this.grades.slice(this.grades.length - count, this.grades.length);
+    }
+    lt(limit) {
+        return this.grades.filter((grade) => grade < limit);
+    }
+    gt(limit) {
+        return this.grades.filter((grade) => grade > limit);
+    }
 }
 // Testando
 const pw2 = new Exams([2, 4, 4], ['a', 'd', 'b']);
