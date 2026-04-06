@@ -1,4 +1,4 @@
-export class Exams {
+class Exams {
     constructor(Weight, Answer) {
         this.weight = Weight;
         this.answer = Answer;
