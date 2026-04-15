@@ -1,0 +1,8 @@
+.flag {
+  min-height: 8.5rem;
+}
+
+.flag p {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
