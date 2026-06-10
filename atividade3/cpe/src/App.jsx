@@ -50,7 +50,7 @@ function App() {
         <h2 className='mb-6 text-center text-2xl font-semibold text-gray-800'>Address</h2>
         <form className='space-y-4'>
           <div>
-            <input type='text' value={cep} onChange={(e) => setCep(e.target.value)} onFocus={() => setCepError('')} onBlur={handleCep} placeholder='CEP' maxLength={9} required className={`w-full border px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none
+            <input type='text' value={cep} onChange={(e) => setCep(e.target.value)} onFocus={() => setCepError('')} onBlur={handleCep} placeholder='CEP' maxLength={9} autoFocus className={`w-full border px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none
             ${cepError 
               ? 'border-red-500 bg-red-100 focus:border-red-600' 
               : 'border-gray-400 bg-transparent focus:border-gray-600'
