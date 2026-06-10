@@ -19,14 +19,13 @@ function App() {
   }
 
   async function handleCep() {
-    const cleanCep = cep.replace(/\D/g, '');
-    if (cleanCep.length !== 8) {
+    if (!/^\d{5}-\d{3}$/.test(cep) && !/^\d{8}$/.test(cep)) {
       setCepError('O CEP informado é invalido.');
       limparCampos();
       return;
     }
     try {
-      const data = await getCepData(cleanCep);
+      const data = await getCepData(cep);
       if (data.erro) {
         limparCampos();
         return;
