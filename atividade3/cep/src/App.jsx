@@ -19,12 +19,10 @@ function App() {
   }
 
   async function handleCep() {
-    if (!/^\d{5}-\d{3}$/.test(cep) && !/^\d{8}$/.test(cep)) {
-      setCepError('O CEP informado é invalido.');
-      limparCampos();
-      return;
-    }
     try {
+      if (!/^\d{5}-\d{3}$/.test(cep) && !/^\d{8}$/.test(cep)) {
+        throw new Error('O CEP informado é invalido.');
+      }
       const cepLimpo = cep.replace('-', '');
       const data = await getCepData(cepLimpo);
       if (data.erro) {
@@ -37,8 +35,8 @@ function App() {
       setTimeout(() => {
         document.getElementById('numero')?.focus();
       }, 50);
-    } catch (err) {
-      setCepError(err.message);
+    } catch (e) {
+      setCepError(e.message);
       limparCampos();
     }
   }
