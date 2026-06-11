@@ -25,12 +25,11 @@ function App() {
       return;
     }
     try {
-      const data = await getCepData(cep);
+      const cepLimpo = cep.replace('-', '');
+      const data = await getCepData(cepLimpo);
       if (data.erro) {
-        limparCampos();
-        return;
+        throw new Error('Erro ao buscar o CEP.');
       }
-      setCepError('');
       setRua(data.logradouro || '');
       setBairro(data.bairro || '');
       setEstado(data.uf || '');
@@ -39,7 +38,7 @@ function App() {
         document.getElementById('numero')?.focus();
       }, 50);
     } catch (err) {
-      setCepError(err.message || 'Erro ao buscar o CEP.');
+      setCepError(err.message);
       limparCampos();
     }
   }
@@ -50,7 +49,7 @@ function App() {
         <h2 className='mb-6 text-center text-2xl font-semibold text-gray-800'>Address</h2>
         <form className='space-y-4'>
           <div>
-            <input type='text' value={cep} onChange={(e) => setCep(e.target.value)} onFocus={() => setCepError('')} onBlur={handleCep} placeholder='CEP' maxLength={9} autoFocus className={`w-full border px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none
+            <input type='text' value={cep} onChange={(e) => setCep(e.target.value)} onFocus={() => setCepError('')} onBlur={handleCep} placeholder='CEP' name='cep' maxLength={9} autoFocus className={`w-full border px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none
             ${cepError 
               ? 'border-red-500 bg-red-100 focus:border-red-600' 
               : 'border-gray-400 bg-transparent focus:border-gray-600'
@@ -62,19 +61,19 @@ function App() {
             )}
           </div>
           <div>
-            <input type='text' value={rua} onChange={(e) => setRua(e.target.value)} placeholder='Rua' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
+            <input type='text' value={rua} onChange={(e) => setRua(e.target.value)} placeholder='Rua' name='rua' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
           </div>
           <div>
-            <input type='text' value={numero} onChange={(e) => setNumero(e.target.value)} id='numero' placeholder='Número' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
+            <input type='text' value={numero} onChange={(e) => setNumero(e.target.value)} id='numero' name='numero' placeholder='Número' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
           </div>
           <div>
-            <input type='text' value={bairro} onChange={(e) => setBairro(e.target.value)} placeholder='Bairro' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
+            <input type='text' value={bairro} onChange={(e) => setBairro(e.target.value)} placeholder='Bairro' name='bairro' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
           </div>
           <div>
-            <input type='text' value={estado} onChange={(e) => setEstado(e.target.value)} placeholder='Estado' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
+            <input type='text' value={estado} onChange={(e) => setEstado(e.target.value)} placeholder='Estado' name='estado' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
           </div>
           <div>
-            <input type='text' value={cidade} onChange={(e) => setCidade(e.target.value)} placeholder='Cidade' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
+            <input type='text' value={cidade} onChange={(e) => setCidade(e.target.value)} placeholder='Cidade' name='cidade' className='w-full border border-gray-400 bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-500 outline-none focus:border-gray-600'/>
           </div>
         </form>
       </div>
